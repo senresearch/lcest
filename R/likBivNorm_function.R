@@ -9,7 +9,6 @@
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return calculated maximum likelihood function for optimazation using optim.
-#' @keywords 
 #' @examples
 #' 
 likBivNorm<- function(thetaT, cenData){
@@ -35,7 +34,6 @@ likBivNorm<- function(thetaT, cenData){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return Vector whose sum would be log likelihood function if completely uncensored.
-#' @keywords 
 #' @examples
 #' 
 bothUncen.N <- function(thetaI, cenData){
@@ -60,7 +58,6 @@ bothUncen.N <- function(thetaI, cenData){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return Vector whose to be summed for for this portion of the log liklihood function.
-#' @keywords 
 #' @examples
 #'
 bothCen.N <-function(thetaI, cenData){
@@ -88,7 +85,6 @@ bothCen.N <-function(thetaI, cenData){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return Vector whose to be summed for this portion of the log liklihood function.
-#' @keywords 
 #' @examples
 #'
 yOnlyCen.N <- function(thetaI, cenData){
@@ -111,7 +107,6 @@ yOnlyCen.N <- function(thetaI, cenData){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return Vector whose to be summed for this portion of the log liklihood function.
-#' @keywords 
 #' @examples
 #'
 xOnlyCen.N <- function(thetaI, cenData){
