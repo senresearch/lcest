@@ -18,7 +18,4 @@ Vector whose sum would be log likelihood function if completely uncensored.
 \description{
 This is the log likelihood function when both x and y are uncensored for bivariate, normally distributed data.
 }
-\examples{
-
-}
 

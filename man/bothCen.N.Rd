@@ -18,7 +18,4 @@ Vector whose to be summed for for this portion of the log liklihood function.
 \description{
 This is the portion of the log likelihood function when both x and y are censored for bivariate, normally distributed data.
 }
-\examples{
-
-}
 
