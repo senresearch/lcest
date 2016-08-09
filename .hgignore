@@ -4,3 +4,4 @@ syntax: glob
 *.Rproj
 .gitignore
 .DS_Store
+*.tar.gz
