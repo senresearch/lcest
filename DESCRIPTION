@@ -1,11 +1,13 @@
 Package: lcest
 Title: Left Censored Estimates
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: Estimates menas, standard deviations, and correlation for left
-    censored data distributed bivariate normal or bivariate T.
+Authors@R: c(person( "Emily", "Hanson", email = "hanea-17@rhodes.edu"), person("Saunak", "Sen", email =sen@uthsc.edu) )
+Maintainer: person( "Emily", "Hanson", email = "hanea-17@rhodes.edu") 
+Description: Estimates means, standard deviations, and correlation for left
+    censored data bivariate normal or t data.
 Depends:
-    R (>= 3.2.3)
+    R (>= 3.2.3) 
+Imports: mnormt (>=1.5-4)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
