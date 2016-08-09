@@ -1,21 +1,11 @@
-
-# Purpose:  Builds the Var cov matrix from corr and sds requested and converts it using convertToScale
-# Parameters: requested corr and sds to change to scale matrix
-# Returns: a 2 x 2 scale matrix
-buildScaleMat <- function(sdx, sdy, r, df){
-  # get variance covaraince matrix
-  varcovarMat <-matrix( c(sdx^2, sdx*sdy*r, sdx*sdy*r, sdy^2), nrow =2, ncol =2)
-  # convert to scale matrix by calling convert to scale which multiplies by df based coeffeicent 
-  scaleMat <- convertToScale( varcovarMat, df)
-}
-
 # Purpose: Converts a Var Cov Parameter (matrix, vec, or single parameter) into a scale parameter
 # Parameter: varCovarPara = anything to multiply by df based constant to turn to scale parameter
 # Returns: new parameter now in scale with df
 # Note: based on the fact S*df/(df-2) = var cov matrix (see ?dmt)
 # Note: does NOT convert theta
 convertToScale <- function( varCovPara, df){
-  scalePara <- varCovPara*(df -2)/df
+  if( df != Inf) scalePara <- varCovPara*(df -2)/df
+  if( df == Inf) scalePara <- varCovPara
 }
 
 # Purpose: Converts a scale Parameter (matrix, vec, or single parameter) into a Var Cov parameter
@@ -24,7 +14,8 @@ convertToScale <- function( varCovPara, df){
 # Note: based on the fact S*df/(df-2) = var cov matrix (see ?dmt)
 # Note: does NOT convert theta
 convertFromScale <- function( scalePara, df){
-  varCovPara <- scalePara*df/(df -2)
+  if( df != Inf) varCovPara <- scalePara*df/(df -2)
+  if( df == Inf) varCovPara <- scalePara
 }
 
 # Purpose: Converts theta from c(xmu, ymu, xsd, ysd, r) to c( xmu, ymu, sigma11, sigma22, sigma21)
