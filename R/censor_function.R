@@ -37,7 +37,7 @@ censorData <- function( uncenData, cenLevelVec){
 
 #' Alter Censoring Method
 #' 
-#' This function will take already censored data and change 
+#' This function will take already censored data and replace LOD with LOD/sqrt2 or another value
 #' @param cenData Data matrix such that the first half of the columns are the censored data and the 
 #'         second haf are the isCensored flags with 1 indicating censoring, where censored data has a value
 #'         equal to the limit of detection.

@@ -20,7 +20,7 @@ Matrix such that the first half of the columns are the censored data and the
         equal to replace parameter.
 }
 \description{
-This function will take already censored data and change
+This function will take already censored data and replace LOD with LOD/sqrt2 or another value
 }
 \details{
 To change the censored values to LOD/sqrt2 the data passed to the function must be censored

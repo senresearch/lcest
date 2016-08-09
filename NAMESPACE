@@ -3,3 +3,5 @@
 export(blcest)
 export(censorData)
 export(censorDifferently)
+export(genData.N)
+export(genData.T)
