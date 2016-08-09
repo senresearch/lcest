@@ -4,14 +4,14 @@
 \alias{blcest}
 \title{Bivaraite Left Censored Estimates}
 \usage{
-blcest(cenData, df = 0, thetaG = defualtGuess(cenData), alpha = 0.05,
+blcest(cenData, df = Inf, thetaG = defualtGuess(cenData), alpha = 0.05,
   maxit = 500)
 }
 \arguments{
 \item{cenData}{matrix of data in which first two columns hold data values for x and y and the second two
 columns hold flags for censoring such that 1 implies censored and 0 implies not censored.}
 
-\item{df}{Degrees of Freedom with df=0 (Default) implying normal, otherwise, must be greater than 3 and an intger.}
+\item{df}{Degrees of Freedom with df=Inf implying normal. Must be greater than 3 and an intger.}
 
 \item{thetaG}{vector of length 5, a guess of approximate values for (xmu,ymu,xsd,ysd,r), which
 by default uses the means, standard deviations and correlations not adjusting for censoring.}
@@ -21,19 +21,15 @@ by default uses the means, standard deviations and correlations not adjusting fo
 \item{maxit}{max number of iterations}
 }
 \value{
-Parameter estimates MORE
+Add Details
 }
 \description{
 This function computes the parameter estimates using maximum likelihood estimate (MLE) method.
 }
 \details{
 The maximum likelihood method is done with the optim function. Therefore thetaG is the initial 
-         values fo rthe parameters to be optimized over. Also note maxit here is the same as maxit in 
+         values for the parameters to be optimized over. Also note maxit here is the same as maxit in 
          optim. Increaing maxit may increase run time, but will decrease the change of no convergence 
          from convergence error code 1. For more information on convergence error codes see optim documentation.
-}
-\examples{
-ADD THESE
-
 }
 
