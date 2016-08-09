@@ -9,8 +9,6 @@ defualtGuess(cenData)
 \arguments{
 \item{cenData}{matrix of data in which first two columns hold data values for x and y and the second two
 columns hold flags for censoring such that 1 implies censored and 0 implies not censored.}
-
-\item{thetaT}{transformed vector of parameters to optimize such that c(xmu, ymu, log(xsig), log(ysig), tanh(r)).}
 }
 \value{
 guesstheta vector of length 5, guess for each xmu, ymu, xsd, ysd, rho

@@ -10,8 +10,6 @@ rescaleVarCovMat(varCovMat, transPar)
 \item{varCovMat}{a 5x5 matrix which is the inverted hessian result of optim}
 
 \item{transPar}{vector of length 5, the parameter results of optim still on transformed scale}
-
-\item{thetaT}{transformed vector of parameters to optimize such that c(xmu, ymu, log(xsig), log(ysig), tanh(r)).}
 }
 \value{
 the varaiance covariance mat, now in orginal scale

@@ -33,6 +33,7 @@ likBiv.T <- function(thetaT, cenData, df){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @param df Degrees of Freedom must be greater than 3 and an integer.
+#' @importFrom mnormt dmt
 #' @return Vector whose sum would be log likelihood function if completely uncensored.
 #'
 bothUncen.T <- function(thetaIS, cenData, df){
@@ -55,6 +56,7 @@ bothUncen.T <- function(thetaIS, cenData, df){
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @param df Degrees of Freedom must be greater than 3 and an integer.
+#' @importFrom mnormt pmt
 #' @return Vector whose to be summed for for this portion of the log liklihood function.
 #'
 bothCen.T <- function(thetaIS, cenData, df){

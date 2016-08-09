@@ -32,6 +32,7 @@ genData.N <- function( n, xmu, ymu, xsd, ysd, r){
 #' @param scaleMat a symmetric positive-definite matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2
 #' @param df Degrees of Freedom must be greater than 3 and an integer.
 #' @return data set matrix with nrow = n and ncol= d
+#' @importFrom mnormt rmt
 #' @export
 #' @examples 
 #'

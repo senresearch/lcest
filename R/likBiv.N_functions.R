@@ -32,6 +32,7 @@ likBiv.N<- function(thetaT, cenData){
 #' @param thetaI vector of parameters to optimize untransformed such that c( xmu, ymu, xsig, ysig, r).
 #' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
+#' @importFrom mnormt dmnorm
 #' @return Vector whose sum would be log likelihood function if completely uncensored.
 #' 
 bothUncen.N <- function(thetaI, cenData){
