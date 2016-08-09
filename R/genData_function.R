@@ -1,0 +1,16 @@
+#' Generate Bivariate Data
+#' 
+#' This function will generate an uncensored dataset distributed with bivaraite normal or t.
+#' @param n number of pairs of data to generate, number of rows in data set, or sample size.
+#' @param locVec a vector of length d, representing the location parameter (equal to the mean vector when df>1).
+#' @param scaleMat a symmetric positive-definite matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2
+#' @param df Degrees of Freedom must be greater than 3 and an integer or Inf implying normal.
+#' @return data set matrix with nrow = n and ncol= d.
+#' @importFrom mnormt rmt
+#' @export
+#' @examples 
+#'genData(10, c(0,0), buildScaleMat(1,1,0,Inf), Inf)
+genData<- function(n, locVec, scaleMat, df){
+  uncenData <- rmt( n, locVec, scaleMat, df)
+}
+
