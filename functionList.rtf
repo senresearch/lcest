@@ -21,6 +21,15 @@ generate_functions.R\
 \cf0 defaultGuess_function.R\
 	defaultGuess( cenData )\
 \
+trial				(no documentation) ( temp public )\
+	bivariateSummary(x)\
+	runTrial.N( nsim,n,theta=c(0,0,1,1,0), censorLevel=c(0,0),alpha=0.2 )\
+	runTrial.T( nsim, n, theta=c(0,0,1,1,0), df=4, censorLevel=c(0,0),alpha=0.2 )\
+	checkCICoverage( outputData, theta =c(0,0,1,1,0) )\
+	checkBiasMse( outputData, theta =c(0,0,1,1,0) )\
+\
+maybe buildScaleMat\
+\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 PRIVATE\
 \
@@ -53,13 +62,6 @@ rescaleVarCovMat_function.R\
 transform_function.R\
 	transformTheta( thetaI )\
 	transformThetaInv( thetaT )\
-\
-trial				(no documentation) ( temp public )\
-	bivariateSummary(x)\
-	runTrial.N( nsim,n,theta=c(0,0,1,1,0), censorLevel=c(0,0),alpha=0.2 )\
-	runTrial.T( nsim, n, theta=c(0,0,1,1,0), df=4, censorLevel=c(0,0),alpha=0.2 )\
-	checkCICoverage( outputData, theta =c(0,0,1,1,0) )\
-	checkBiasMse( outputData, theta =c(0,0,1,1,0) )\
 \
 scaleMat.T_functions.R	(no documentation)\
 	buildScaleMat( sdx, sdy, r, df )\
