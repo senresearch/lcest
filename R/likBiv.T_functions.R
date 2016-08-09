@@ -10,7 +10,7 @@
 #' 
 #Note: thetaIS denotes inverse of transformed theta and as scale matrix elements
 #  ie theta = c(xmu, ymu, sig11, sig12, sig22)
-likBivT <- function(thetaT, cenData, df){
+likBiv.T <- function(thetaT, cenData, df){
   # Transform Theta
   thetaI <- transformThetaInv(thetaT)
   thetaIS <- convertThetaToScale(thetaI, df)

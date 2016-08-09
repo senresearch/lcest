@@ -16,20 +16,22 @@
 #' @export
 #' @examples ADD THESE
 #' 
-blcest <-function(cenData, df=0, thetaG = optimStartGuess(cenData), alpha =.05, maxit = 500){
+blcest <-function(cenData, df=0, thetaG = defualtGuess(cenData), alpha =.05, maxit = 500){
   #transform Starting Guess
   thetaGT <- transformTheta(thetaG)
   # control=list(fnscale=-1) maximizes instead of optims default of min
   # Run Optim Normal
   if ( df == 0){
-    results <- optim( par = thetaGT, likBivNorm, cenData = cenData,
+    results <- optim( par = thetaGT, likBiv.N, cenData = cenData,
                       control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
   }
   # Run optim T
   if (df > 3){
-    results <- optim( par = thetaGT, likBivT, cenData = cenData, df=df,
+    results <- optim( par = thetaGT, likBiv.T, cenData = cenData, df=df,
                       control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
   }
+  if (df < 3 && df != 0 ) stop( "df must be greater than 3 or equal to 0 for normal")
+  if ( df %% 1 != 0) stop( "df must be integer")
   #Converts back to the bounds we interprete result on
   estimate <- transformThetaInv(results$par)
   # Changing Hessian to CovVarMat

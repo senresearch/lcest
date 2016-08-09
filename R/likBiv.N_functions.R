@@ -10,12 +10,12 @@
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
 #' @return calculated maximum likelihood function for optimazation using optim.
 #' 
-likBivNorm<- function(thetaT, cenData){
+likBiv.N<- function(thetaT, cenData){
   # Transform Theta
   thetaI <- transformThetaInv(thetaT)
   #create vectors for each data point for any censoring scenario
   bothUncen <- bothUncen.N(thetaI, cenData[,1:2])
-  bothCen <- bothCenF.N(thetaI, cenData[,1:2])
+  bothCen <- bothCen.N(thetaI, cenData[,1:2])
   xOnlyCen <- xOnlyCen.N(thetaI, cenData[,1:2])
   yOnlyCen <- yOnlyCen.N(thetaI, cenData[,1:2])
   #creating a vector using binary cen vector to choose correct scenario
@@ -64,8 +64,8 @@ bothCen.N <-function(thetaI, cenData){
   muVec <- c(thetaI[1], thetaI[2])
   # return log likelihood by using 2-dim distribution function
   #if no correlation                 
-  v <- pnorm(cenData[,1], muVec[1], sd = thetaI[3], log.p = TRUE) + 
-    pnorm(cenData[,2], muVec[2], sd = thetaI[4], log.p = TRUE) 
+  #v <- pnorm(cenData[,1], muVec[1], sd = thetaI[3], log.p = TRUE) + 
+  # pnorm(cenData[,2], muVec[2], sd = thetaI[4], log.p = TRUE) 
   # with correlation
   # designed by Dr Sen
   # no better results that ONE, just faster
