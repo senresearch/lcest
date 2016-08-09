@@ -13,7 +13,7 @@
 # Purpose:  Builds the Var cov matrix from corr and sds requested and converts it using convertToScale
 # Parameters: requested corr and sds to change to scale matrix
 # Returns: a 2 x 2 scale matrix
-buildScaleMat <- function(sdx, sdy, r, df){
+buildScaleMat <- function(xsd, ysd, r, df){
   # get variance covaraince matrix
   varcovarMat <-matrix( c(sdx^2, sdx*sdy*r, sdx*sdy*r, sdy^2), nrow =2, ncol =2)
   # convert to scale matrix by calling convert to scale which multiplies by df based coeffeicent 

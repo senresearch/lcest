@@ -4,16 +4,16 @@
 \alias{buildScaleMat}
 \title{Build Scale Matrix}
 \usage{
-buildScaleMat(sdx, sdy, r, df)
+buildScaleMat(xsd, ysd, r, df)
 }
 \arguments{
-\item{r}{correlation of x and y.}
-
-\item{df}{Degrees of Freedom must be greater than 3 and an integer or Inf for normal.}
-
 \item{xsd}{standard deviation of x.}
 
 \item{ysd}{standard deviation of y.}
+
+\item{r}{correlation of x and y.}
+
+\item{df}{Degrees of Freedom must be greater than 3 and an integer or Inf for normal.}
 }
 \value{
 2x2 matrix
