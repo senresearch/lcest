@@ -1,4 +1,5 @@
 
+
 ################################################################
 ## function to return means, sds, and correlation of bivariate data
 ################################################################
@@ -6,6 +7,7 @@ bivariateSummary <- function(x)
 {
   c(mean(x[,1]),mean(x[,2]),sd(x[,1]),sd(x[,2]),cor(x[,1],x[,2]))
 }
+
 
 ################################################################
 ## function to run simulations and check confidence interval coverage
@@ -16,6 +18,7 @@ bivariateSummary <- function(x)
 ## alpha = confidence levels will be 1-alpha level
 ################################################################
 
+#' @export
 runTrial.N <- function(nsim,n,theta=c(0,0,1,1,0),
                          censorLevel=c(0,0),alpha=0.2)
 {
@@ -31,7 +34,7 @@ runTrial.N <- function(nsim,n,theta=c(0,0,1,1,0),
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
     ## get optimResults
-    result1 <- optimResults(cenData1,alpha=alpha)
+    result1 <- blcest(cenData1,alpha=alpha)
     ## get bivariate summary
     exact <- bivariateSummary(data1)
     
@@ -66,6 +69,7 @@ runTrial.N <- function(nsim,n,theta=c(0,0,1,1,0),
 ## alpha = confidence levels will be 1-alpha level
 ################################################################
 
+#' @export
 runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
                          censorLevel=c(0,0),alpha=0.2)
 {
@@ -82,7 +86,7 @@ runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
     ## get optimResults
-    result1 <- optimResults(cenData1,alpha=alpha)
+    result1 <- blcest(cenData1,alpha=alpha, df= df)
     ## get bivariate summary
     exact <- bivariateSummary(data1)
     
@@ -111,6 +115,7 @@ runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
 ## outputData = output of runTrialNorm
 ## theta = true value of bivariate normal parameters
 #############################################################
+#' @export
 checkCICoverage <- function(outputData,theta=c(0,0,1,1,0))
 {
   ## is lower limit less than true value
@@ -131,7 +136,7 @@ checkCICoverage <- function(outputData,theta=c(0,0,1,1,0))
 ## outputData = output of runTrialNorm
 ## theta = true value of bivariate normal parameters
 #############################################################
-
+#' @export
 calcBiasMse <- function(outputData,theta=c(0,0,1,1,0))
 {
   b0 <- apply(outputData[,1:5],1,function(x) (x-theta))
