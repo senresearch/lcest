@@ -1,6 +1,3 @@
-
-
-
 #' Default Guess
 #' 
 #' This function picksa reasonable starting guess for optim, which is the mean, sd, and corr of the data ignoring censoring.

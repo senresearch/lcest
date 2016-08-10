@@ -58,13 +58,14 @@ censorDifferently <- function( cenData, replacement =LOD/sqrt(2) ){
   # loop through and change value if flag = 1
   for( dataCol in 1:(numCol/2)){
     flagCol = numCol/2 + dataCol
-    for ( r in numRow){
+    for ( r in 1:numRow){
       if( cenData[r, flagCol] == 1){
         LOD <- cenData[r,dataCol]
         cenData[r,dataCol] <- replacement
-      }
+      } else cenData[r,dataCol] <- cenData[r,dataCol]
     }
   }
+  cenData
 }
 
 

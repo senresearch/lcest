@@ -21,9 +21,8 @@ bivariateSummary <- function(x)
 
 
 runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
-                         censorLevel=c(0,0),alpha=0.2)
+                         censorLevel=c(0,0),alpha=0.2, fileName ="trialOutput.csv")
 {
-  fileName <- "trialOutput.csv"
   date <- date()
   ## make matrix for returning value
   outputData <- matrix(nrow=nsim,ncol=5*7)
@@ -36,9 +35,10 @@ runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
     data1 <- genData( n, locVec, scaleMat, df )
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
-    print( cor(cenData1[,1:2]))
     cenData2 <- censorDifferently( cenData1)
-    print( cor(cenData1[,1:2]))
+    ## get other censoring method parameters
+    LODmethodPar <- defaultGuess(cenData1)
+    LODSQRT2methodPar <- defaultGuess(cenData2)
     ## get optimResults
     result1 <- blcest(cenData1,alpha=alpha, df= df)
     ## get bivariate summary
@@ -50,8 +50,8 @@ runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
     outputData[i,11:15] <- result1$coefficients$stdError
     outputData[i,16:20] <- result1$coefficients$lowerCI
     outputData[i,21:25] <- result1$coefficients$upperCI
-    outputData[i,26:30] <- defaultGuess(cenData1) #LOD method
-    outputData[i,31:35] <- defaultGuess(cenData2) #LODsqrt2 method
+    outputData[i,26:30] <- LODmethodPar #LOD method
+    outputData[i,31:35] <- LODSQRT2methodPar #LODsqrt2 method
   }
   
   ## names of the parameters
