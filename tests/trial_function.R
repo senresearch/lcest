@@ -104,20 +104,34 @@ checkCICoverage <- function(outputData,theta=c(0,0,1,1,0))
 
 calcBiasMse <- function(outputData,theta=c(0,0,1,1,0))
 {
+  # for exact and estimate
   b0 <- apply(outputData[,1:5],1,function(x) (x-theta))
   b1 <- apply(outputData[,6:10],1,function(x) (x-theta))
   m0 <- apply(b0,1,mean)
   m1 <- apply(b1,1,mean)
   m2 <- apply(b0^2,1,mean)
   m3 <- apply(b1^2,1,mean)
-  out <- c(m0,m1,m2,m3)
   
+  # for other methods
+  b2 <- apply(outputData[,26:30],1,function(x) (x-theta))
+  b3 <- apply(outputData[,31:35],1,function(x) (x-theta))
+  m4 <- apply(b2,1,mean)
+  m5 <- apply(b3,1,mean)
+  m6 <- apply(b2^2,1,mean)
+  m7 <- apply(b3^2,1,mean)
+  
+  out <- c(m0,m1,m2,m3, m4, m5, m6, m7)
+              
   parnames <- c("xmu","ymu","xsd","ysd","r")
   ## make names of all columns
   names(out) <- c(paste("exact.bias",parnames,sep="."),
                   paste("estimate.bias",parnames,sep="."),
                   paste("exact.mse",parnames,sep="."),
-                  paste("estimate.mse",parnames,sep="."))
+                  paste("estimate.mse",parnames,sep="."),
+                  paste("LOD.bias",parnames,sep="."),
+                  paste("LODsqrt2.bias",parnames,sep="."),
+                  paste("LOD.mse",parnames,sep="."),
+                  paste("LODsqrt2.mse",parnames,sep="."))
   out
 }
 
