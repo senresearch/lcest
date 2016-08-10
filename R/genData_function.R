@@ -9,7 +9,14 @@
 #' @importFrom mnormt rmt
 #' @export
 #' @examples 
-#'genData(10, c(0,0), buildScaleMat(1,1,0,Inf), Inf)
+#' xmu = 0
+#' ymu = 0
+#' xsd = 1
+#' ysd = 1
+#' r = 1
+#' df = Inf #normal
+#' scaleMat <- buildScaleMat( xsd, ysd, r, df
+#'genData(10, c(xmu, ymu), scaleMat, Inf)
 genData<- function(n, locVec, scaleMat, df){
   uncenData <- rmt( n, locVec, scaleMat, df)
 }

@@ -7,22 +7,28 @@
 #' @param thetaG vector of length 5, a guess of approximate values for (xmu,ymu,xsd,ysd,r), which
 #'        by default uses the means, standard deviations and correlations not adjusting for censoring.
 #' @param alpha confidence levels will be 1-alpha level.
-#' @param maxit max number of iterations
+#' @param control list of parameters to pass to control in optim. See detail and optim documentation for more information.
 #' @details The maximum likelihood method is done with the optim function. Therefore thetaG is the initial 
-#'          values for the parameters to be optimized over. Also note maxit here is the same as maxit in 
-#'          optim. Increaing maxit may increase run time, but will decrease the change of no convergence 
+#'          values for the parameters to be optimized over. 
+#'          The control parameter allow the user to change certian parameters in optim. The most helpful is likely maxit.
+#'          Increaing maxit may increase run time, but will decrease the change of no convergence 
 #'          from convergence error code 1. For more information on convergence error codes see optim documentation.
+#'          Please do not change fnscale from equaling -1. This is neccessay for MLE method.
 #' @return Add Details 
 #' @export
+#' @example 
 #' 
-blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, maxit = 500){
+#' 
+blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, control=list(fnscale=-1, maxit = 1000)){
+  # Warning for change of fnscale
+  if( control$fnscale == -1 ) warning( " To properly run blcest fnscale must equal -1. ")
   #transform Starting Guess
   thetaGT <- transformTheta(thetaG)
   # control=list(fnscale=-1) maximizes instead of optims default of min
   # Run Optim Normal
   if ( df == Inf){
     results <- optim( par = thetaGT, likBiv.N, cenData = cenData,
-                      control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
+                      control=control, hessian = TRUE )
   }
   # Run optim T
   if (df > 3 && df !=Inf){
