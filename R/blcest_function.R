@@ -15,7 +15,7 @@
 #' @return Add Details 
 #' @export
 #' 
-blcest <-function(cenData, df=Inf, thetaG = defualtGuess(cenData), alpha =.05, maxit = 500){
+blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, maxit = 500){
   #transform Starting Guess
   thetaGT <- transformTheta(thetaG)
   # control=list(fnscale=-1) maximizes instead of optims default of min
@@ -25,8 +25,8 @@ blcest <-function(cenData, df=Inf, thetaG = defualtGuess(cenData), alpha =.05, m
                       control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
   }
   # Run optim T
-  if (df > 3){
-    if ( df %% 1 != 0 ) stop( "df must be integer")
+  if (df > 3 && df !=Inf){
+    if ( df %% 1 != 0) stop( "df must be integer")
     results <- optim( par = thetaGT, likBiv.T, cenData = cenData, df=df,
                       control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
   }

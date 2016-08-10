@@ -4,7 +4,7 @@
 \alias{blcest}
 \title{Bivaraite Left Censored Estimates}
 \usage{
-blcest(cenData, df = Inf, thetaG = defualtGuess(cenData), alpha = 0.05,
+blcest(cenData, df = Inf, thetaG = defaultGuess(cenData), alpha = 0.05,
   maxit = 500)
 }
 \arguments{

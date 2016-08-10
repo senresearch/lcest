@@ -13,56 +13,6 @@ bivariateSummary <- function(x)
 ## function to run simulations and check confidence interval coverage
 ## nsim = number of simulations
 ## n = sample size
-## theta = true values of bivariate normal (xmu,ymu,xsd,ysd,r)
-## censorLevel = vector of length 2 indicating censoring level
-## alpha = confidence levels will be 1-alpha level
-################################################################
-
-
-runTrial.N <- function(nsim,n,theta=c(0,0,1,1,0),
-                         censorLevel=c(0,0),alpha=0.2)
-{
-  ## make matrix for returning value
-  outputData <- matrix(nrow=nsim,ncol=5*5)
-  
-  ## loop through simulations
-  for( i in 1:nsim)
-  {
-    ## generate data
-    data1 <- genData.N(n, theta[1],theta[2],theta[3],
-                     theta[4],theta[5])
-    ## censor data per specs
-    cenData1 <- censorData( data1, censorLevel)
-    ## get optimResults
-    result1 <- blcest(cenData1,alpha=alpha)
-    ## get bivariate summary
-    exact <- bivariateSummary(data1)
-    
-    ## assign values to matrix
-    outputData[i,1:5] <- exact
-    outputData[i,6:10] <- result1$coefficients$estimate
-    outputData[i,11:15] <- result1$coefficients$stdError
-    outputData[i,16:20] <- result1$coefficients$lowerCI
-    outputData[i,21:25] <- result1$coefficients$upperCI
-  }
-  
-  ## names of the parameters
-  parnames <- c("xmu","ymu","xsd","ysd","r")
-  ## make names of all columns
-  colnames(outputData) <- c(paste("exact",parnames,sep="."),
-                            paste("estimate",parnames,sep="."),
-                            paste("sd",parnames,sep="."),
-                            paste("lowerCL",parnames,sep="."),
-                            paste("upperCL",parnames,sep="."))
-  ## return
-  outputData
-}
-
-
-################################################################
-## function to run simulations and check confidence interval coverage
-## nsim = number of simulations
-## n = sample size
 ## theta = true values of bivariate t (xmu,ymu,xsd,ysd,r)
 ## df = degrees of freedom
 ## censorLevel = vector of length 2 indicating censoring level
@@ -70,21 +20,25 @@ runTrial.N <- function(nsim,n,theta=c(0,0,1,1,0),
 ################################################################
 
 
-runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
+runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
                          censorLevel=c(0,0),alpha=0.2)
 {
+  fileName <- "trialOutput.csv"
+  date <- date()
   ## make matrix for returning value
-  outputData <- matrix(nrow=nsim,ncol=5*5)
-  
+  outputData <- matrix(nrow=nsim,ncol=5*7)
   ## loop through simulations
   for( i in 1:nsim)
   {
     ## generate data
     locVec <- c(theta[1], theta[2])
     scaleMat <- buildScaleMat( theta[3], theta[4], theta[5], df)
-    data1 <- genData.T( n, locVec, scaleMat, df )
+    data1 <- genData( n, locVec, scaleMat, df )
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
+    print( cor(cenData1[,1:2]))
+    cenData2 <- censorDifferently( cenData1)
+    print( cor(cenData1[,1:2]))
     ## get optimResults
     result1 <- blcest(cenData1,alpha=alpha, df= df)
     ## get bivariate summary
@@ -96,6 +50,8 @@ runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
     outputData[i,11:15] <- result1$coefficients$stdError
     outputData[i,16:20] <- result1$coefficients$lowerCI
     outputData[i,21:25] <- result1$coefficients$upperCI
+    outputData[i,26:30] <- defaultGuess(cenData1) #LOD method
+    outputData[i,31:35] <- defaultGuess(cenData2) #LODsqrt2 method
   }
   
   ## names of the parameters
@@ -105,9 +61,18 @@ runTrial.T <- function(nsim,n,theta=c(0,0,1,1,0), df = 4,
                             paste("estimate",parnames,sep="."),
                             paste("sd",parnames,sep="."),
                             paste("lowerCL",parnames,sep="."),
-                            paste("upperCL",parnames,sep="."))
-  ## return
-  outputData
+                            paste("upperCL",parnames,sep="."),
+                            paste("LOD method", parnames, sep="."),
+                            paste("LODSqrt2 method", parnames, sep="."))
+  ## output to csv
+  dataFile <- file(fileName, open="wt")
+  on.exit(close(dataFile))
+  writeLines(paste("# this csv file was created by trial_function.R on", date), con=dataFile)
+  writeLines(paste("Parameters: nsim=", nsim, "; n=", n, "; theta= c(", theta[1], ";", theta[2], 
+                  ";", theta[3], ";", theta[4], ";", theta[5], ")", "; df=", df,
+                   "; censorLevel= c(", censorLevel[1], ";", censorLevel[2], ")", 
+                   "; alpha=", alpha), con=dataFile)
+  write.csv( outputData, dataFile)
 }
 #############################################################
 ## check coverage of confidence intervals

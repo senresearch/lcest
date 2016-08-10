@@ -15,7 +15,7 @@
 # Returns: a 2 x 2 scale matrix
 buildScaleMat <- function(xsd, ysd, r, df){
   # get variance covaraince matrix
-  varcovarMat <-matrix( c(sdx^2, sdx*sdy*r, sdx*sdy*r, sdy^2), nrow =2, ncol =2)
+  varcovarMat <-matrix( c(xsd^2, xsd*ysd*r, xsd*ysd*r, ysd^2), nrow =2, ncol =2)
   # convert to scale matrix by calling convert to scale which multiplies by df based coeffeicent 
   scaleMat <- convertToScale( varcovarMat, df)
 }
