@@ -35,7 +35,7 @@ runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
     data1 <- rmt( n, locVec, scaleMat, df )
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
-    cenData2 <- censorDifferently( cenData1)
+    cenData2 <- censorImpute( cenData1)
     ## get other censoring method parameters
     LODmethodPar <- defaultGuess(cenData1)
     LODSQRT2methodPar <- defaultGuess(cenData2)

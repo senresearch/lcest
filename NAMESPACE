@@ -3,7 +3,7 @@
 export(blcest)
 export(buildScaleMat)
 export(censorData)
-export(censorDifferently)
+export(censorImpute)
 export(defaultGuess)
 export(genData)
 importFrom(mnormt,dmnorm)

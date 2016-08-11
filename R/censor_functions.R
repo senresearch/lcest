@@ -43,7 +43,7 @@ censorData <- function( uncenData, cenLevelVec){
   cenData <- cbind(uncenData,flagMat)
 }
 
-#' Alter Censoring Method
+#' Censor Impute
 #' 
 #' This function will take already censored data and replace LOD with LOD/sqrt2 or another value
 #' @param cenData Data matrix such that the first half of the columns are the censored data and the 
@@ -59,7 +59,7 @@ censorData <- function( uncenData, cenLevelVec){
 #' @export
 #' @examples 
 #'
-censorDifferently <- function( cenData, replacement =LOD/sqrt(2) ){
+censorImpute <- function( cenData, replacement =LOD/sqrt(2) ){
   # find num of col and rows in data matrix
   numCol = length(cenData[1,])
   numRow = length(cenData[,1])

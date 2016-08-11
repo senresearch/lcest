@@ -1,12 +1,12 @@
-#' Bivaraite Left Censored Estimates
+#' Bivariate Left Censored Estimates
 #' 
-#' This function computes the parameter estimates using maximum likelihood estimate (MLE) method.
-#' @param cenData matrix of data in which first two columns hold data values for x and y and the second two
+#' This function computes the  maximum likelihood estimate (MLE) for bivariate normal and t data with left censoring.
+#' @param cenData Matrix of data, in which first two columns hold data values for x and y and the second two
 #'        columns hold flags for censoring such that 1 implies censored and 0 implies not censored.
-#' @param df Degrees of Freedom with df=Inf implying normal. Must be greater than 3 and an intger.
-#' @param thetaG vector of length 5, a guess of approximate values for (xmu,ymu,xsd,ysd,r), which
+#' @param df Integer greater than 3. Degrees of Freedom with df=Inf implying normal.
+#' @param thetaG Vector of length 5, a guess of approximate values for (xmu,ymu,xsd,ysd,r), which
 #'        by default uses the means, standard deviations and correlations not adjusting for censoring.
-#' @param alpha confidence levels will be 1-alpha level.
+#' @param alpha Number bewteen 0 and 1. Confidence levels will be 1-alpha level.
 #' @param control list of parameters to pass to control in optim. See detail and optim documentation for more information.
 #' @details The maximum likelihood method is done with the optim function. Therefore thetaG is the initial 
 #'          values for the parameters to be optimized over. 
@@ -16,7 +16,7 @@
 #'          Please do not change fnscale from equaling -1. This is neccessay for MLE method.
 #' @return Returns a list containing two elements, coefficients and varCovMatrix. 
 #'         The object coefficients is a 5x5 data frame with rows for each parameter, xMu, yMu, xSd, ySd, and R,
-#'         and with columns for parameters estimates, standard errrors, t-Value, upper confidence interval, and lower confidence interval.
+#'         and with columns for parameters estimates, standard errors, t-Value, upper confidence interval, and lower confidence interval.
 #' @export
 #' @examples
 #' xmu = 0
@@ -28,13 +28,13 @@
 #' scaleMat <- buildScaleMat( xsd, ysd, r, df)
 #' myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
 #' cenData <- censorData(uncenData = myData, cenLevelVec =c(.2,.2))
-#' blcest( cenData)
+#' blcest( cenData )
 #' 
 blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, control=list(fnscale=-1, maxit = 1000)){
   # Warning for change of fnscale
   if( control$fnscale != -1 ) warning( " To properly run blcest fnscale must equal -1. ")
   # force proper alpha
-  if (alpha >= 1 || alpha <= 0) alpha =.05
+  if (alpha >= 1 || alpha <= 0) stop( " alpha must be between 0 and 1")
   #transform Starting Guess
   thetaGT <- transformTheta(thetaG)
   # control=list(fnscale=-1) maximizes instead of optims default of min
@@ -47,7 +47,7 @@ blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, c
   if (df > 3 && df !=Inf){
     if ( df %% 1 != 0) stop( "df must be integer")
     results <- optim( par = thetaGT, likBiv.T, cenData = cenData, df=df,
-                      control=list(fnscale=-1, maxit = maxit), hessian = TRUE )
+                      control=control, hessian = TRUE )
   }
   if (df < 3 ) stop( "df must be greater than 3 or equal to 0 for normal")
   #Converts back to the bounds we interprete result on
