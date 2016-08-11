@@ -17,7 +17,7 @@
 #' r = 1
 #' df = Inf #normal
 #' scaleMat <- buildScaleMat( xsd, ysd, r, df)
-#' myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
+#' myData <- genData(10, c(xmu, ymu), scaleMat, df)
 #' censorData(uncenData = myData, cenLevelVec =c(.2,.2))
 #'
 censorData <- function( uncenData, cenLevelVec){

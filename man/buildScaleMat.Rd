@@ -7,11 +7,11 @@
 buildScaleMat(xsd, ysd, r, df)
 }
 \arguments{
-\item{xsd}{standard deviation of x.}
+\item{xsd}{standard deviation of x. Must be positive.}
 
-\item{ysd}{standard deviation of y.}
+\item{ysd}{standard deviation of y. Must be positive.}
 
-\item{r}{correlation of x and y.}
+\item{r}{correlation of x and y. Cannot be less than -1 or more than 1.}
 
 \item{df}{Degrees of Freedom must be greater than 3 and an integer or Inf for normal.}
 }
@@ -22,7 +22,8 @@ buildScaleMat(xsd, ysd, r, df)
 This function builds a 2x2 scale matrix given xsd, ysd, corr, and df.
 }
 \examples{
-buildScaleMat( 1,1,0,Inf)
+buildScaleMat( 1,1,0,Inf) #normal 
+buildScaleMat( 1,1,0,4) #t with df =4
 
 }
 

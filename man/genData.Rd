@@ -29,6 +29,6 @@ ysd = 1
 r = 1
 df = Inf #normal
 scaleMat <- buildScaleMat( xsd, ysd, r, df)
-genData(10, c(xmu, ymu), scaleMat, Inf)
+genData(10, c(xmu, ymu), scaleMat, df)
 }
 

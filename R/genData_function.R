@@ -16,8 +16,10 @@
 #' r = 1
 #' df = Inf #normal
 #' scaleMat <- buildScaleMat( xsd, ysd, r, df)
-#'genData(10, c(xmu, ymu), scaleMat, Inf)
+#' genData(10, c(xmu, ymu), scaleMat, df)
 genData<- function(n, locVec, scaleMat, df){
+  if (df < 3 ) stop(" df must be greater than 3.")
+  if ( df %% 1 != 0 && df != Inf) stop( "df must be integer.")
   uncenData <- rmt( n, locVec, scaleMat, df)
 }
 

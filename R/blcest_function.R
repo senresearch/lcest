@@ -33,6 +33,8 @@
 blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, control=list(fnscale=-1, maxit = 1000)){
   # Warning for change of fnscale
   if( control$fnscale == -1 ) warning( " To properly run blcest fnscale must equal -1. ")
+  # force proper alpha
+  if (alpha >= 1 || alpha <= 0) alpha =.05
   #transform Starting Guess
   thetaGT <- transformTheta(thetaG)
   # control=list(fnscale=-1) maximizes instead of optims default of min
