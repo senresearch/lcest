@@ -5,7 +5,7 @@
 \title{Bivaraite Left Censored Estimates}
 \usage{
 blcest(cenData, df = Inf, thetaG = defaultGuess(cenData), alpha = 0.05,
-  maxit = 500)
+  control = list(fnscale = -1, maxit = 1000))
 }
 \arguments{
 \item{cenData}{matrix of data in which first two columns hold data values for x and y and the second two
@@ -18,18 +18,35 @@ by default uses the means, standard deviations and correlations not adjusting fo
 
 \item{alpha}{confidence levels will be 1-alpha level.}
 
-\item{maxit}{max number of iterations}
+\item{control}{list of parameters to pass to control in optim. See detail and optim documentation for more information.}
 }
 \value{
-Add Details
+Returns a list containing two elements, coefficients and varCovMatrix. 
+        The object coefficients is a 5x5 data frame with rows for each parameter, xMu, yMu, xSd, ySd, and R,
+        and with columns for parameters estimates, standard errrors, t-Value, upper confidence interval, and lower confidence interval.
 }
 \description{
 This function computes the parameter estimates using maximum likelihood estimate (MLE) method.
 }
 \details{
 The maximum likelihood method is done with the optim function. Therefore thetaG is the initial 
-         values for the parameters to be optimized over. Also note maxit here is the same as maxit in 
-         optim. Increaing maxit may increase run time, but will decrease the change of no convergence 
+         values for the parameters to be optimized over. 
+         The control parameter allow the user to change certian parameters in optim. The most helpful is likely maxit.
+         Increaing maxit may increase run time, but will decrease the change of no convergence 
          from convergence error code 1. For more information on convergence error codes see optim documentation.
+         Please do not change fnscale from equaling -1. This is neccessay for MLE method.
+}
+\examples{
+xmu = 0
+ymu = 0
+xsd = 1
+ysd = 1
+r = 1
+df = Inf #normal
+scaleMat <- buildScaleMat( xsd, ysd, r, df)
+myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
+cenData <- censorData(uncenData = myData, cenLevelVec =c(.2,.2))
+blcest( cenData)
+
 }
 

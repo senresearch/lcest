@@ -10,6 +10,14 @@
 #'         equal to the limit of detection.
 #' @export
 #' @examples 
+#' xmu = 0
+#' ymu = 0
+#' xsd = 1
+#' ysd = 1
+#' r = 1
+#' df = Inf #normal
+#' scaleMat <- buildScaleMat( xsd, ysd, r, df)
+#' myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
 #' censorData(uncenData = myData, cenLevelVec =c(.2,.2))
 #'
 censorData <- function( uncenData, cenLevelVec){

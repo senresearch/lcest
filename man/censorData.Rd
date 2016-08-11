@@ -24,6 +24,14 @@ The function sets the limit of detection at the value which the requested amount
          All values below this limit of detection are replaced with the limit of detection.
 }
 \examples{
+xmu = 0
+ymu = 0
+xsd = 1
+ysd = 1
+r = 1
+df = Inf #normal
+scaleMat <- buildScaleMat( xsd, ysd, r, df)
+myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
 censorData(uncenData = myData, cenLevelVec =c(.2,.2))
 
 }

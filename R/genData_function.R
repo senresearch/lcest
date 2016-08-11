@@ -15,7 +15,7 @@
 #' ysd = 1
 #' r = 1
 #' df = Inf #normal
-#' scaleMat <- buildScaleMat( xsd, ysd, r, df
+#' scaleMat <- buildScaleMat( xsd, ysd, r, df)
 #'genData(10, c(xmu, ymu), scaleMat, Inf)
 genData<- function(n, locVec, scaleMat, df){
   uncenData <- rmt( n, locVec, scaleMat, df)

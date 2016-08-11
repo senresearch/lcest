@@ -14,10 +14,21 @@
 #'          Increaing maxit may increase run time, but will decrease the change of no convergence 
 #'          from convergence error code 1. For more information on convergence error codes see optim documentation.
 #'          Please do not change fnscale from equaling -1. This is neccessay for MLE method.
-#' @return Add Details 
+#' @return Returns a list containing two elements, coefficients and varCovMatrix. 
+#'         The object coefficients is a 5x5 data frame with rows for each parameter, xMu, yMu, xSd, ySd, and R,
+#'         and with columns for parameters estimates, standard errrors, t-Value, upper confidence interval, and lower confidence interval.
 #' @export
-#' @example 
-#' 
+#' @examples
+#' xmu = 0
+#' ymu = 0
+#' xsd = 1
+#' ysd = 1
+#' r = 1
+#' df = Inf #normal
+#' scaleMat <- buildScaleMat( xsd, ysd, r, df)
+#' myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
+#' cenData <- censorData(uncenData = myData, cenLevelVec =c(.2,.2))
+#' blcest( cenData)
 #' 
 blcest <-function(cenData, df=Inf, thetaG = defaultGuess(cenData), alpha =.05, control=list(fnscale=-1, maxit = 1000)){
   # Warning for change of fnscale
