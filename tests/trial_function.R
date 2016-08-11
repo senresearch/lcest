@@ -32,7 +32,7 @@ runTrial<- function(nsim,n,theta=c(0,0,1,1,0), df = Inf,
     ## generate data
     locVec <- c(theta[1], theta[2])
     scaleMat <- buildScaleMat( theta[3], theta[4], theta[5], df)
-    data1 <- genData( n, locVec, scaleMat, df )
+    data1 <- rmt( n, locVec, scaleMat, df )
     ## censor data per specs
     cenData1 <- censorData( data1, censorLevel)
     cenData2 <- censorDifferently( cenData1)
