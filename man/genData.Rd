@@ -7,19 +7,22 @@
 genData(n, locVec, scaleMat, df)
 }
 \arguments{
-\item{n}{number of pairs of data to generate, number of rows in data set, or sample size.}
+\item{n}{An integer, representing the number of pairs of data to generate, number of rows in data set, or sample size.}
 
-\item{locVec}{a vector of length d, representing the location parameter (equal to the mean vector when df>1).}
+\item{locVec}{A vector of length 2, representing the location parameter (equal to the mean vector when df>1).}
 
-\item{scaleMat}{a symmetric positive-definite matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2}
+\item{scaleMat}{A symmetric positive-definite 2x2 matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2}
 
-\item{df}{Degrees of Freedom must be greater than 3 and an integer or Inf implying normal.}
+\item{df}{Integer greater than 3, representing degrees of freedom with df=Inf implying normal.}
 }
 \value{
-data set matrix with nrow = n and ncol= d.
+Returns a data set matrix with nrow = n and ncol= 2.
 }
 \description{
-This function will generate an uncensored dataset distributed with bivaraite normal or t.
+This function will generate an uncensored dataset distributed bivaraite normal or t.
+}
+\details{
+It is suggested to use buildScaleMat to generate the scaleMat parameter.
 }
 \examples{
 xmu = 0

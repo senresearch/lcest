@@ -1,11 +1,12 @@
 #' Generate Bivariate Data
 #' 
-#' This function will generate an uncensored dataset distributed with bivaraite normal or t.
-#' @param n number of pairs of data to generate, number of rows in data set, or sample size.
-#' @param locVec a vector of length d, representing the location parameter (equal to the mean vector when df>1).
-#' @param scaleMat a symmetric positive-definite matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2
-#' @param df Degrees of Freedom must be greater than 3 and an integer or Inf implying normal.
-#' @return data set matrix with nrow = n and ncol= d.
+#' This function will generate an uncensored dataset distributed bivaraite normal or t.
+#' @param n An integer, representing the number of pairs of data to generate, number of rows in data set, or sample size.
+#' @param locVec A vector of length 2, representing the location parameter (equal to the mean vector when df>1).
+#' @param scaleMat A symmetric positive-definite 2x2 matrix representing the scale matrix of the distribution, such that S*df/(df-2) is the variance-covariance matrix when df>2
+#' @param df Integer greater than 3, representing degrees of freedom with df=Inf implying normal.
+#' @return Returns a data set matrix with nrow = n and ncol= 2.
+#' @details It is suggested to use buildScaleMat to generate the scaleMat parameter.
 #' @importFrom mnormt rmt
 #' @export
 #' @examples 

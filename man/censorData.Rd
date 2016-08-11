@@ -7,17 +7,17 @@
 censorData(uncenData, cenLevelVec)
 }
 \arguments{
-\item{uncenData}{Data matrix of any size.}
+\item{uncenData}{Data matrix to be censored.}
 
-\item{cenLevelVec}{vector of length equal to rows of data, indicating censoring level requested in decimals.}
+\item{cenLevelVec}{Vector of length equal to rows of data, indicating censoring level requested in decimals.}
 }
 \value{
 Matrix such that the first half of the columns are the censored data and the 
-        second haf are the isCensored flags with 1 indicating censoring, where censored data has a value
+        second haf are the isCensored flags with 1 indicating censored and 0 indicating not censored, where censored data has a value
         equal to the limit of detection.
 }
 \description{
-This function will take a data set and artificially left censor it to a request level of censoring.
+This function will take a data set and artificially left censor it to a requested level of censoring.
 }
 \details{
 The function sets the limit of detection at the value which the requested amount of data is below.

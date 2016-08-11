@@ -8,33 +8,35 @@ blcest(cenData, df = Inf, thetaG = defaultGuess(cenData), alpha = 0.05,
   control = list(fnscale = -1, maxit = 1000))
 }
 \arguments{
-\item{cenData}{Matrix of data, in which first two columns hold data values for x and y and the second two
+\item{cenData}{n x 4 matrix of data, in which first two columns hold data values for x and y variables and the second two
 columns hold flags for censoring such that 1 implies censored and 0 implies not censored.}
 
-\item{df}{Integer greater than 3. Degrees of Freedom with df=Inf implying normal.}
+\item{df}{Integer greater than 3, representing degrees of freedom with df=Inf implying normal.}
 
 \item{thetaG}{Vector of length 5, a guess of approximate values for (xmu,ymu,xsd,ysd,r), which
 by default uses the means, standard deviations and correlations not adjusting for censoring.}
 
-\item{alpha}{Number bewteen 0 and 1. Confidence levels will be 1-alpha level.}
+\item{alpha}{Number bewteen 0 and 1, such that confidence levels will be 1-alpha level.}
 
-\item{control}{list of parameters to pass to control in optim. See detail and optim documentation for more information.}
+\item{control}{List of parameters to pass to control in optim. See details and optim documentation for more information.}
 }
 \value{
 Returns a list containing two elements, coefficients and varCovMatrix. 
-        The object coefficients is a 5x5 data frame with rows for each parameter, xMu, yMu, xSd, ySd, and R,
-        and with columns for parameters estimates, standard errors, t-Value, upper confidence interval, and lower confidence interval.
+        The object coefficients is a 5x5 data frame with rows for each parameter (xMu, yMu, xSd, ySd, and R),
+        and with columns for parameters estimates, standard errors, t-Value, upper confidence interval, and 
+        lower confidence interval. The varCovMatrix object is a 5x5 matrix which is the variance - covariance matrix.
 }
 \description{
 This function computes the  maximum likelihood estimate (MLE) for bivariate normal and t data with left censoring.
 }
 \details{
-The maximum likelihood method is done with the optim function. Therefore thetaG is the initial 
-         values for the parameters to be optimized over. 
-         The control parameter allow the user to change certian parameters in optim. The most helpful is likely maxit.
-         Increaing maxit may increase run time, but will decrease the change of no convergence 
+The maximum likelihood method is done with the optim function. Thus thetaG is the initial 
+         values for the parameters to be optimized over, and the control parameter allow the user to change certian 
+         parameters in optim. The most helpful item in the list is likely maxit.
+         Increaing maxit may slightly increase run time, but will decrease the change of no convergence 
          from convergence error code 1. For more information on convergence error codes see optim documentation.
-         Please do not change fnscale from equaling -1. This is neccessay for MLE method.
+
+         Important note: Please do not change fnscale from equaling -1. This is neccessay for MLE method.
 }
 \examples{
 xmu = 0
@@ -43,10 +45,10 @@ xsd = 1
 ysd = 1
 r = 0
 df = Inf #normal
-scaleMat <- buildScaleMat( xsd, ysd, r, df)
+scaleMat <- buildScaleMat(xsd, ysd, r, df)
 myData <- genData(10, c(xmu, ymu), scaleMat, Inf)
 cenData <- censorData(uncenData = myData, cenLevelVec =c(.2,.2))
-blcest( cenData )
+blcest(cenData)
 
 }
 

@@ -7,13 +7,13 @@
 defaultGuess(cenData)
 }
 \arguments{
-\item{cenData}{matrix of data in which first two columns hold data values for x and y and the second two
+\item{cenData}{nx4 matrix of data, in which first two columns hold data values for x and y variables and the second two
 columns hold flags for censoring such that 1 implies censored and 0 implies not censored.}
 }
 \value{
-guesstheta vector of length 5, guess for each xmu, ymu, xsd, ysd, rho
+Returns a vector of length 5, which is a guess for each xmu, ymu, xsd, ysd, correlation.
 }
 \description{
-This function picksa reasonable starting guess for optim, which is the mean, sd, and corr of the data ignoring censoring.
+This function, used in blcest, picks a reasonable starting guess for optim, which is the mean, sd, and corr of the data ignoring censoring.
 }
 

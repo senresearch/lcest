@@ -1,11 +1,11 @@
 #' Build Scale Matrix
 #' 
 #' This function builds a 2x2 scale matrix given xsd, ysd, corr, and df.
-#' @param xsd standard deviation of x. Must be positive.
-#' @param ysd standard deviation of y. Must be positive.
-#' @param r correlation of x and y. Cannot be less than -1 or more than 1.
-#' @param df Degrees of Freedom must be greater than 3 and an integer or Inf for normal.
-#' @return 2x2 matrix
+#' @param xsd A positive number representing the standard deviation of x.
+#' @param ysd A positive number representing the standard deviation of x.
+#' @param r  A number between -1 and 1 representing the correlation of x and y. 
+#' @param df Integer greater than 3, representing degrees of freedom with df=Inf implying normal.
+#' @return Returns a 2x2 matrix oftened used to give scaling parameters to rmt.
 #' @export
 #' @examples 
 #' buildScaleMat( 1,1,0,Inf) #normal 

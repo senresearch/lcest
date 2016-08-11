@@ -1,12 +1,12 @@
 #' Left Censor Data
 #' 
-#' This function will take a data set and artificially left censor it to a request level of censoring.
-#' @param uncenData Data matrix of any size.
-#' @param cenLevelVec vector of length equal to rows of data, indicating censoring level requested in decimals.
+#' This function will take a data set and artificially left censor it to a requested level of censoring.
+#' @param uncenData Data matrix to be censored.
+#' @param cenLevelVec Vector of length equal to rows of data, indicating censoring level requested in decimals.
 #' @details The function sets the limit of detection at the value which the requested amount of data is below.
 #'          All values below this limit of detection are replaced with the limit of detection.
 #' @return Matrix such that the first half of the columns are the censored data and the 
-#'         second haf are the isCensored flags with 1 indicating censoring, where censored data has a value
+#'         second haf are the isCensored flags with 1 indicating censored and 0 indicating not censored, where censored data has a value
 #'         equal to the limit of detection.
 #' @export
 #' @examples 
@@ -45,19 +45,30 @@ censorData <- function( uncenData, cenLevelVec){
 
 #' Censor Impute
 #' 
-#' This function will take already censored data and replace LOD with LOD/sqrt2 or another value
+#' This function will take already censored data and replace LOD with LOD/sqrt2 or another value.
 #' @param cenData Data matrix such that the first half of the columns are the censored data and the 
-#'         second haf are the isCensored flags with 1 indicating censoring, where censored data has a value
-#'         equal to the limit of detection.
-#' @param replacement The value request to fill censored values in the censored data matrix. 
+#'         second half are the isCensored flags with 1 indicating censored and 0 indicating not censored,
+#'         where censored data has a value equal to the limit of detection.
+#' @param replacement The value request to fill censored values inplace of the LOD in the censored data matrix. 
 #'        By Defualt equals LOD divided by sqrt2 as this is a common method.
 #' @details To change the censored values to LOD/sqrt2 the data passed to the function must be censored
 #'          such that censored values = LOD. If LOD is not availible, replacement should only equal numerical values. 
 #' @return Matrix such that the first half of the columns are the censored data and the 
-#'         second haf are the isCensored flags with 1 indicating censoring, where censored data has a value
+#'         second half are the isCensored flags with 1 indicating censoring, where censored data has a value
 #'         equal to replace parameter.
 #' @export
 #' @examples 
+#' xmu = 0
+#' ymu = 0
+#' xsd = 1
+#' ysd = 1
+#' r = 0
+#' df = 4 #t with 4 degrees of freedom
+#' scaleMat <- buildScaleMat( xsd, ysd, r, df)
+#' myData <- genData(10, c(xmu, ymu), scaleMat, df)
+#' LODcenored <- censorData(uncenData = myData, cenLevelVec =c(.2,.2))
+#' LODoverSQRT2censored <- censorImpute(LODcensored) #using defual replacement
+#' ZEROcensored <- censorImpute(LODcensored, replacemnt = 0) #using numerical replacement
 #'
 censorImpute <- function( cenData, replacement =LOD/sqrt(2) ){
   # find num of col and rows in data matrix
