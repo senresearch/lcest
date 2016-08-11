@@ -4,8 +4,11 @@
 # Note: based on the fact S*df/(df-2) = var cov matrix (see ?dmt)
 # Note: does NOT convert theta
 convertToScale <- function( varCovPara, df){
-  if( df != Inf) scalePara <- varCovPara*(df -2)/df
-  if( df == Inf) scalePara <- varCovPara
+  if(is.infinite(df))
+      scalePara <- varCovPara
+  else
+      scalePara <- varCovPara*(df -2)/df
+  scalePara
 }
 
 # Purpose: Converts a scale Parameter (matrix, vec, or single parameter) into a Var Cov parameter
@@ -14,8 +17,11 @@ convertToScale <- function( varCovPara, df){
 # Note: based on the fact S*df/(df-2) = var cov matrix (see ?dmt)
 # Note: does NOT convert theta
 convertFromScale <- function( scalePara, df){
-  if( df != Inf) varCovPara <- scalePara*df/(df -2)
-  if( df == Inf) varCovPara <- scalePara
+  if(is.infinite(df))
+      varCovPara <- scalePara
+  else
+      varCovPara <- scalePara*df/(df -2)
+  varCovPara
 }
 
 # Purpose: Converts theta from c(xmu, ymu, xsd, ysd, r) to c( xmu, ymu, sigma11, sigma22, sigma21)

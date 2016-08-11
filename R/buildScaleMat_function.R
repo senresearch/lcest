@@ -22,4 +22,5 @@ buildScaleMat <- function(xsd, ysd, r, df){
   varcovarMat <-matrix( c(xsd^2, xsd*ysd*r, xsd*ysd*r, ysd^2), nrow =2, ncol =2)
   # convert to scale matrix by calling convert to scale which multiplies by df based coeffeicent 
   scaleMat <- convertToScale( varcovarMat, df)
+  scaleMat
 }
