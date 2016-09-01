@@ -8,4 +8,4 @@ To install use:
 -----
 
 Since this is a Mercurial respository we have to use a different
-reference name from the Git default (+"master"+).
+reference name from the Git default (`"master"`).
